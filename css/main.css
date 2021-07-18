@@ -1,17 +1,25 @@
 .ratePanel {
-  padding: 0;
+  padding: 0.25rem;
   position: absolute;
   z-index: 10000;
-  background-color: rgba(0, 0, 0, 0.691);
+  background-color: rgba(0, 0, 0, 0.836);
+  opacity: 0.1;
   border: 1px solid white;
+  border-radius: 5px;
+  top: 5rem;
+  color: white;
 }
 
+.ratePanel:hover {
+  opacity: 1;
+}
+
+.ratePanel__increase,
 .ratePanel__decrease {
-}
-
-.ratePanel__increase {
+  padding: 0 0.25rem;
 }
 
 .ratePanel__current {
+  font-weight: bold;
   font-size: 1rem;
 }
