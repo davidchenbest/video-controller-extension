@@ -1,3 +1,6 @@
+const fasterRate = 0.25;
+const slowerRate = -0.25;
+
 function getVideos() {
   try {
     const videos = document.querySelectorAll("video");
@@ -5,39 +8,65 @@ function getVideos() {
   } catch (error) { }
 }
 
-function stepVideosRate(videos, rate) {
+function stepVideosRate(rate) {
+  const videos = getVideos();
   videos.forEach((v) => {
     v.playbackRate += rate;
+    addRatePanel(videos, v.playbackRate)
   });
 }
 
-function addRatePanel(videos) {
-  const className = 'videoRatePanel'
+const clickChangeRate = (e) => {
+  e.stopPropagation()
+  console.log(8);
+}
+
+
+function addRatePanel(videos, currentSpeed) {
+  const className = 'ratePanel'
   const parent = videos[0].parentNode
   const exist = parent.querySelector(`.${className}`)
   if (!exist) {
     const node = document.createElement("h1");
-    node.innerHTML = '<button>-</button> <button>+</button>'
+    node.innerHTML = `
+    <button class='ratePanel__decrease'>-</button>
+    <span class='ratePanel__current'>${currentSpeed}</span> 
+    <button class='ratePanel__increase'>+</button>`
     // const textnode = document.createTextNode('<button>video controller</button>');
     // node.appendChild(textnode);
-    node.style.cssText = 'position:absolute; z-index:10000;'
+    // node.style.cssText = 'position:absolute; z-index:10000;'
     node.className = className
     parent.append(node)
+
+    const decreaseBtn = node.querySelector('.ratePanel__decrease')
+    decreaseBtn.onclick = (event) => {
+      event.stopPropagation()
+      stepVideosRate(slowerRate);
+    }
+
+    const increaseBtn = node.querySelector('.ratePanel__increase')
+    increaseBtn.onclick = (event) => {
+      event.stopPropagation()
+      stepVideosRate(fasterRate);
+    }
+
   }
+  else {
+    const speedElement = document.querySelector('.ratePanel__current')
+    speedElement.innerHTML = currentSpeed
+  }
+
 
 }
 
+
+
 window.addEventListener("load", (event) => {
-  const fasterRate = 0.25;
-  const slowerRate = -0.25;
   document.addEventListener("keypress", (e) => {
     const { key } = e;
     if (key === "d" || key === "s") {
-      const videos = getVideos();
-      if (videos && videos.length) {
-        stepVideosRate(videos, key === "d" ? fasterRate : slowerRate);
-        addRatePanel(videos)
-      }
+      stepVideosRate(key === "d" ? fasterRate : slowerRate);
+
     }
   });
 });

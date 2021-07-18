@@ -1,0 +1,17 @@
+.ratePanel {
+  padding: 0;
+  position: absolute;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.691);
+  border: 1px solid white;
+}
+
+.ratePanel__decrease {
+}
+
+.ratePanel__increase {
+}
+
+.ratePanel__current {
+  font-size: 1rem;
+}
