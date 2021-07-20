@@ -18,7 +18,6 @@ function stepVideosRate(rate) {
 
 const clickChangeRate = (e) => {
   e.stopPropagation();
-  console.log(8);
 };
 
 function addRatePanel(videos, currentSpeed) {
